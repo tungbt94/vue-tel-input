@@ -18,8 +18,8 @@
           class="dropdown-item"
           v-for="(pb, index) in sortedCountries"
           :key="pb.iso2 + (pb.preferred ? '-preferred' : '')"
-          @click="choose(pb)"
           :class="getItemClass(index, pb.iso2)"
+          @click="choose(pb)"
           @mousemove="selectedIndex = index"
         >
           <div class="iti-flag" v-if="enabledFlags" :class="pb.iso2.toLowerCase()"></div>
@@ -338,6 +338,12 @@ export default {
       };
     },
     choose(country) {
+      const curPhone = this.phone;
+      if (curPhone[0] === '+' || curPhone[0] === '0') {
+        this.phone = curPhone.split(' ').slice(1).join('');
+      } else {
+        this.phone = curPhone;
+      }
       this.activeCountry = country;
       this.$emit('onInput', this.response);
     },
