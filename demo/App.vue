@@ -11,6 +11,10 @@
         <strong>{{ phone.number }}</strong>,&nbsp;
       </span>
       <span>
+        National:
+        <strong>{{ phone.national }}</strong>,&nbsp;
+      </span>
+      <span>
         Is valid:
         <strong>{{ phone.isValid }}</strong>,&nbsp;
       </span>
@@ -35,8 +39,9 @@ export default {
     };
   },
   methods: {
-    onInput({ number, isValid, country }) {
+    onInput({ number, national, isValid, country }) {
       this.phone.number = number;
+      this.phone.national = national;
       this.phone.isValid = isValid;
       this.phone.country = country && country.name;
     },
