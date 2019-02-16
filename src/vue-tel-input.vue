@@ -28,6 +28,7 @@
         </li>
       </ul>
     </div>
+    <span class="vue-tel-code">+{{ activeCountry.dialCode }}</span>
     <input
       ref="input"
       v-model="phone"
@@ -133,6 +134,11 @@ ul {
 .vue-tel-input.disabled .dropdown,
 .vue-tel-input.disabled input {
   cursor: no-drop;
+}
+.vue-tel-code{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
 
@@ -262,6 +268,7 @@ export default {
         phone = this.phone.slice(1);
       }
 
+      this.formattedNational = formatNumber(phone, this.activeCountry && this.activeCountry.iso2, 'National');
       return formatNumber(phone, this.activeCountry && this.activeCountry.iso2, 'International');
     },
     state() {
@@ -271,8 +278,10 @@ export default {
       // If it is a valid number, returns the formatted value
       // Otherwise returns what it is
       const number = this.state ? this.formattedResult : this.phone;
+      const national = this.state ? this.formattedNational : this.phone;
       return {
         number,
+        national,
         isValid: this.state,
         country: this.activeCountry,
       };
@@ -283,7 +292,8 @@ export default {
       if (value && this.mode !== 'prefix') {
         // If mode is 'prefix', keep the number as user typed,
         // Otherwise format it
-        this.phone = this.formattedResult;
+        // this.phone = this.formattedResult;
+        this.phone = this.formattedNational.slice(1);
       }
       this.$emit('onValidate', this.response);
     },
