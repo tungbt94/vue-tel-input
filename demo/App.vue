@@ -31,7 +31,7 @@ export default {
   name: 'app',
   data() {
     return {
-      phoneNumber: "+84963077599",
+      phoneNumber: "",
       phone: {
         number: '',
         isValid: false,
