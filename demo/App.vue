@@ -3,7 +3,7 @@
     <h1>Telephone Input Vue</h1>
     <h2 style="color: #999">made with &#x2764; by Steven.</h2>
     <div style="width: 500px; margin: 20px auto;">
-      <vue-tel-input @onInput="onInput" :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
+      <vue-tel-input v-model="phoneNumber" @onInput="onInput" :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
     </div>
     <div v-if="phone.number" style="color: #e83e8c">
       <span>
@@ -31,6 +31,7 @@ export default {
   name: 'app',
   data() {
     return {
+      phoneNumber: "+84963077599",
       phone: {
         number: '',
         isValid: false,
